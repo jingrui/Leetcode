@@ -6,11 +6,11 @@ public class Solution {
     public int trap(int[] A) {
         Stack<Integer> lmax = new Stack<Integer>();
         Stack<Integer> rmax = new Stack<Integer>();
-		lmax.push(0);
-		rmax.push(0);
-		for(int i = A.length -1; i >= 0; i--)
-			if (A[i] >= rmax.peek())
-				rmax.push(A[i]);
+	lmax.push(0);
+	rmax.push(0);
+	for(int i = A.length -1; i >= 0; i--)
+	        if (A[i] >= rmax.peek())
+			rmax.push(A[i]);
 		
         int ret = 0;
         for(int i = 0; i < A.length; i++){
