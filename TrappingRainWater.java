@@ -1,3 +1,37 @@
+// O(n) solution. 
+// for each bar, find the max height bar on the left and right. 
+// then for this bar it can hold min(max_left, max_right) - height
+// There might be a way to just push the same max into stack just once
+public class Solution {
+    public int trap(int[] A) {
+        Stack<Integer> lmax = new Stack<Integer>();
+        Stack<Integer> rmax = new Stack<Integer>();
+		lmax.push(0);
+		rmax.push(0);
+		for(int i = A.length -1; i >= 0; i--)
+			if (A[i] >= rmax.peek())
+				rmax.push(A[i]);
+		
+        int ret = 0;
+        for(int i = 0; i < A.length; i++){
+            // find largest on the left
+            int left = lmax.peek();
+            if (A[i] > lmax.peek())
+            	lmax.push(A[i]);
+            
+            // find largest on the right
+            if (A[i] == rmax.peek())
+            	rmax.pop();
+            int right = rmax.peek();
+            
+            //System.out.println("left = "+left+",right = "+right);
+            ret += (Math.min(left,right) - A[i]) > 0? (Math.min(left,right) - A[i]) : 0;
+        }
+        return ret;
+    }
+}
+
+// Max height H. length n. O(nH)
 // this method is good for small input but time limit for large test case
 // basic idea: from the highest to lowest, find the difference between this height with the second highest
 // multiply height difference by the distance differece;
