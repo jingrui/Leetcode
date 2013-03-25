@@ -1,5 +1,5 @@
-
-
+// Given an unsorted integer array, find the first missing positive integer.
+// Your algorithm should run in O(n) time and uses constant space.
 public class Solution {
     public int firstMissingPositive(int[] A) {
         // Start typing your Java solution below
