@@ -3,8 +3,8 @@
 //
 public class Solution {
     public String multiply(String num1, String num2) {
-    String ret = "";
-        Integer n1[] = new Integer[num1.length()];
+      String ret = "";
+      Integer n1[] = new Integer[num1.length()];
       Integer n2[] = new Integer[num2.length()];
 	    for(int i = n1.length-1; i >= 0;i--)
 	       n1[n1.length-1-i] = Integer.parseInt(num1.substring(i,i+1));
