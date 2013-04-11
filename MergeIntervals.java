@@ -20,12 +20,12 @@ public class Solution {
 					return 1;
 				// ----- the part matter for Large input time limit
 				else {
-		        	if (arg0.end < arg1.end)
-			        	return -1;
-			        else if (arg0.end > arg1.end)
-			        	return 1;
-			        else
-			        	return 0;
+			        	if (arg0.end < arg1.end)
+				        	return -1;
+				        else if (arg0.end > arg1.end)
+				        	return 1;
+				        else
+				        	return 0;
 			    	} //------------------------------------------------			    
 			}
         });
