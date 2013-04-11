@@ -1,3 +1,40 @@
+// Comparator Exmpale
+// correct, running time O(logn)
+// Time exceeded For Large input
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
+        Collections.sort(intervals, new Comparator<Interval>(){
+        	@Override
+			public int compare(Interval arg0, Interval arg1) {
+				if (arg0.start < arg1.start)
+					return -1;
+				if (arg0.start > arg1.start)
+					return 1;
+				return 0;
+			}
+        });
+        int i = 0;
+        while( i < intervals.size()-1){
+        	if (intervals.get(i).end >= intervals.get(i+1).start){
+        		intervals.get(i).end = Math.max(intervals.get(i).end,intervals.get(i+1).end);
+        		intervals.remove(i+1);
+        		continue;
+        	}
+        	i++;        		
+        }        
+        return intervals;
+    }
+}
+
 // Incorrect solution
 // hash all the intervals
 // counter example: 1-4, 5-6. In this way, we do not focus on interval but the integer point. Incorrect reason.
