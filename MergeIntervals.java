@@ -1,6 +1,5 @@
 // Comparator Exmpale
 // correct, running time O(logn)
-// Time exceeded For Large input
 /**
  * Definition for an interval.
  * public class Interval {
