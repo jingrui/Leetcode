@@ -18,15 +18,8 @@ public class Solution {
 					return -1;
 				if (arg0.start > arg1.start)
 					return 1;
-				// ----- the part matter for Large input time limit
-				else {
-			        	if (arg0.end < arg1.end)
-				        	return -1;
-				        else if (arg0.end > arg1.end)
-				        	return 1;
-				        else
-				        	return 0;
-			    	} //------------------------------------------------			    
+				else 
+				      	return 0;			    
 			}
         });
         int i = 0;
