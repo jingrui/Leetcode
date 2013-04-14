@@ -1,3 +1,4 @@
+// O(n) running time
 // Work with Duplicate, OK for small input, but Time exceeded for large input
 import java.util.Collections;
 import java.util.HashMap;
