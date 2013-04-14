@@ -68,6 +68,17 @@ public class Solution {
 		}
 		return max;
 	}
+	/* 
+	// even O(1) to get the max and min, it is still Time Exceed.
+	public static int findmax(HashMap<Character,PriorityQueue<Integer>> hm ){
+		int max = Integer.MIN_VALUE;
+    		for(char c : hm.keySet()){
+			Object[] a = hm.get(c).toArray();
+        		max = Math.max(max, (Integer)a[a.length-1]);
+		}
+		return max;
+	}
+	*/
 }
 
 // this is good if T does not have duplicates
