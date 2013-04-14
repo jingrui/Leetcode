@@ -1,58 +1,46 @@
 // Work with Duplicate, OK for small input, but Time exceeded for large input
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+
 public class Solution {
-    public String minWindow(String S, String T) {
-        HashMap<Character,HashSet<Integer>> hm 
-            = new HashMap<Character,HashSet<Integer>>();
+	public static void main(String[] args){
+		System.out.println(minWindow("dsohniaulobaxywggcojkvxubzslwxpcqfjfnjzyxcbwczfibttmosgqsadqysuqyevlpumpynnamsipndbewjwqmzimsdcsjzdyvrntebtsvdijglnexjujkfvcizwryarvthoykjsfoaowodbloxwzctdmuafsczpvgdvqooxcqmygrbtgbpffkksekzymynigsdwitukmilsbomh", "pdovozpul"));
+	}
+	public static String minWindow(String S, String T) {
+        HashMap<Character,PriorityQueue<Integer>> hm 
+            = new HashMap<Character,PriorityQueue<Integer>>();
         int t = T.length(), num = 0;
-        for(int i = 0; i < T.length(); i++){
-            if (!hm.containsKey(T.charAt(i))){
-                HashSet<Integer> h = new HashSet<Integer>();
-                h.add(-1);
-                hm.put(T.charAt(i),h);
-            } else {
-                HashSet<Integer> h = hm.get(T.charAt(i));
-                h.add(0-(h.size()+1));
-                hm.put(T.charAt(i),h);
-            }
+        for(int i = 0; i < t; i++){
+        	PriorityQueue<Integer> h;
+            if (!hm.containsKey(T.charAt(i)))
+            	h = new PriorityQueue<Integer>();
+            else
+            	h = hm.get(T.charAt(i));
+            h.add(-1);
+            hm.put(T.charAt(i),h);
         }
         
         int dist = Integer.MAX_VALUE;
-        int s = 0, e = 0;
+        int s = 0, e = 0, Amin, Amax;
         for(int i = 0; i < S.length(); i++){
-            char cur = S.charAt(i);
+        	char cur = S.charAt(i);
             if(hm.containsKey(cur)){
+            	PriorityQueue<Integer> h = hm.get(cur);
+            	h.add(i);
+                hm.put(cur,h);
                 // if new char
-            	HashSet<Integer> h = hm.get(cur);
-            	Iterator<Integer> it = h.iterator();
-            	int a = 0;
-            	int min = Integer.MAX_VALUE;
-            	while(it.hasNext()){
-            		a = it.next();
-            		min = Math.min(a,min);
-            		if(a < 0){
-            			num++;
-            			h.remove(a);
-            			h.add(i);
-            			break;
-            		}
-            	}
-            	// already have it, then update the min index
-            	if (a >= 0){
-            		h.remove(min);
-            		h.add(i);
-            	}
-            	
-                hm.put(cur,h);                
+            	if(h.poll() == -1)	num++;
+            	              
                 // if not have all char yet
-                if (num < t)
-                    continue;
+                if (num < t)	continue;
                 
                 // if already have all
                 if (num == t){
                     // find the max and min of the value set
-                    int Amin = findmin(hm);
-                    int Amax = findmax(hm);
+                    Amin = findmin(hm);
+                    Amax = findmax(hm);
                     if ((Amax-Amin+1) < dist){
                         dist = Amax-Amin+1;
                         s = Amin;
@@ -64,27 +52,18 @@ public class Solution {
         if (num < t)    return "";
         return S.substring(s,e+1);
     }
-	public int findmin(HashMap<Character,HashSet<Integer>> hm ){
+	public static int findmin(HashMap<Character,PriorityQueue<Integer>> hm ){
 		int min = Integer.MAX_VALUE;
 		for(char c : hm.keySet()){
-			int tmin = Integer.MAX_VALUE;
-			HashSet<Integer> h = hm.get(c);
-			Iterator<Integer> it = h.iterator();
-        	while(it.hasNext())
-        		tmin = Math.min(it.next(),tmin);
-        	min = Math.min(min, tmin);
+			PriorityQueue<Integer> h = hm.get(c);
+        	min = Math.min(min, h.peek());
 		}
 		return min;
 	}
-	public int findmax(HashMap<Character,HashSet<Integer>> hm ){
+	public static int findmax(HashMap<Character,PriorityQueue<Integer>> hm ){
 		int max = Integer.MIN_VALUE;
 		for(char c : hm.keySet()){
-			int tmax = Integer.MIN_VALUE;
-			HashSet<Integer> h = hm.get(c);
-			Iterator<Integer> it = h.iterator();
-        	while(it.hasNext())
-        		tmax = Math.max(it.next(),tmax);
-        	max = Math.max(max, tmax);
+        	max = Math.max(max, Collections.max(hm.get(c)));
 		}
 		return max;
 	}
