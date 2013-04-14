@@ -32,17 +32,11 @@ public class Solution {
             	
                 // if not have all char yet
                 if (num < t)	continue;
-//                System.out.println("i = "+i+",num = "+num);
                 // if already have all
                 if (num == t){
                     // find the max and min of the value set
                     Amin = all.peek();
-//                    Object[] a = all.toArray();
-//                    for(int j = 0; j < a.length;j++)
-//                        System.out.println("a["+j+"]="+a[j]);
-
                     Amax = Collections.max(all);
-//                    System.out.println("max = "+Amax+", min = "+Amin);
                     if ((Amax-Amin+1) < dist){
                         dist = Amax-Amin+1;
                         s = Amin;
