@@ -1,21 +1,17 @@
-// fast enough for large input
+// O(n)
 public class Solution {
     public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
-        ArrayList<Integer> sums = new ArrayList<Integer>();
-    
-        for(int i=triangle.size()-1;i>=0;i--){
-            for(int j=0;j<=i;j++){
-                if(sums.size()==j)
-                    sums.add(triangle.get(i).get(j));
-                else{
-                    sums.set(j,triangle.get(i).get(j)+Math.min(sums.get(j),sums.get(j+1)));
-                }
-            }
-        }
-        return sums.get(0);
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<Integer> ret = triangle.get(triangle.size()-1);
+        for(int i = triangle.size()-2; i >= 0; i--)
+            for(int j = 0; j <= i; j++)
+                ret.set(j,triangle.get(i).get(j)+Math.min(ret.get(j),ret.get(j+1)));
+                
+        return ret.get(0);
     }
 }
-// not fast enough
+// O(2^n)
 public class Solution {
     public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
         // Start typing your Java solution below
