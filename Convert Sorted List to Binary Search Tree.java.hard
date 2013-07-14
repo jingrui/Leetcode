@@ -1,0 +1,54 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(head == null)    return null;
+        int len = 0;
+        ListNode tmp = head;
+        LinkedList<Integer> ll = new LinkedList<Integer>();
+        while(tmp != null){
+            ll.add(tmp.val);
+            tmp = tmp.next;
+            len++;
+        }
+        return helper(ll,0,len-1);
+    }
+    public TreeNode helper(LinkedList<Integer> cur, int s, int e){
+//        System.out.println("cur = "+((cur == null)?null:cur.peek())+",s = "+s+",e = "+e);
+        if(e < s)   return null;
+        int mid = (s+e)/2;
+        TreeNode left = helper(cur,s,mid-1);
+//      System.out.println("return from left,cur = "+((cur == null)?null:cur.peek())
+//    			+", left = "+((left == null)?null:left.val));
+
+        TreeNode parent = new TreeNode(cur.peek());
+//        System.out.println("Current Node "+cur.peek());
+        
+        parent.left = left;
+        cur.poll();
+        TreeNode right = helper(cur,mid+1,e);
+        parent.right = right;
+//        System.out.println("return from right, cur = "+((cur == null)?null:cur.peek()));
+//        System.out.println("before return, parent = "+parent.val
+//        		+", parent.left = "+(parent.left == null?null:parent.left.val)
+//        		+", parent.right = "+(parent.right == null?null:parent.right.val));
+        return parent;
+    }
+}
