@@ -1,0 +1,15 @@
+// T(i,j) = T(i+1,j)+T(i,j+1)
+public class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if((s1.isEmpty())&&(s2.isEmpty())&&(s3.isEmpty()))    return true;
+        if(s3.isEmpty())    return false;
+        boolean ret = false;
+        if((!s1.isEmpty())&&(s3.charAt(0) == s1.charAt(0)))
+            ret = ret || isInterleave(s1.substring(1),s2,s3.substring(1));
+        if((!s2.isEmpty())&&(s3.charAt(0) == s2.charAt(0)))
+            ret = ret || isInterleave(s1,s2.substring(1),s3.substring(1));
+        return ret;
+    }
+}
