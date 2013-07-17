@@ -1,0 +1,16 @@
+public class Solution {
+    public int numDecodings(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(s.length() == 0)   return 0;
+        return helper(s);
+    }
+    
+    public int helper(String s) {
+        if(s.length() == 0)     return 1;
+        if(!((s.charAt(0) >= '1')&&(s.charAt(0) <= '9')))    return 0;
+
+        return helper(s.substring(1))
+            +((s.length() >= 2)&&((Integer.parseInt(s.substring(0,2)) <= 26))?helper(s.substring(2)):0);
+    }
+}
