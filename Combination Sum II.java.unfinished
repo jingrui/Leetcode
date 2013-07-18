@@ -1,0 +1,35 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+      Integer[] n = new Integer[num.length];
+        for(int i = 0; i < num.length; i++)
+        	n[i] = num[i];
+        List<Integer> l = Arrays.asList(n);
+        Collections.sort(l);
+        ArrayList<ArrayList<Integer>> ret = helper(l,target,0, new ArrayList<Integer>());
+        int i = 0;
+        while(i < ret.size()){
+            int j = i+1;
+        	while(j < ret.size())
+        		if(ret.get(i).equals(ret.get(j)))
+        			ret.remove(j);
+        		else	j++;
+        	i++;
+        }
+        return ret;
+    }
+	public ArrayList<ArrayList<Integer>> helper(List<Integer> l,int t, int i,ArrayList<Integer> cur){
+    	ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+    	if(t == 0){
+    		ret.add(cur);
+    		return ret;
+    	}
+        if((t < 0)||(i >= l.size()))    return ret;
+    	ArrayList<Integer> copy = new ArrayList<Integer>(cur);
+    	cur.add(l.get(i));
+    	ret.addAll(helper(l,t-l.get(i),i+1,cur));
+    	ret.addAll(helper(l,t,i+1,copy));
+		return ret;
+    }
+}
