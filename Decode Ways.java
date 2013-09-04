@@ -3,11 +3,11 @@ public class Solution {
     public int numDecodings(String s) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        if(s.length == 0)   return 0;
-        int dp[] = new int[s.length+1];
+        if(s.length() == 0)   return 0;
+        int dp[] = new int[s.length()+1];
         dp[0] = 1;
         
-        for(int i = 0; i < s.length; i++){
+        for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) != '0')
                 dp[i+1] += dp[i];
             if((i >= 1)&&((s.charAt(i-1) == '1') || (s.charAt(i-1) == '2'))&&(s.charAt(i) <= '6'))
@@ -16,6 +16,7 @@ public class Solution {
         return dp[dp.size()-1];
     }
 }
+
 
 
 // slow
