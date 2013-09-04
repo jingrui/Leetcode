@@ -10,12 +10,13 @@ public class Solution {
         for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) != '0')
                 dp[i+1] += dp[i];
-            if((i >= 1)&&((s.charAt(i-1) == '1') || (s.charAt(i-1) == '2'))&&(s.charAt(i) <= '6'))
+            if((i >= 1)&&((s.charAt(i-1) == '1') || ((s.charAt(i-1) == '2')&&(s.charAt(i) <= '6'))))
                 dp[i+1] += dp[i-1];
         }
-        return dp[dp.size()-1];
+        return dp[dp.length-1];
     }
 }
+
 
 
 
